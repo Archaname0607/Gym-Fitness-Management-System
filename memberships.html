@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memberships - GymPro</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8fc;
+            color: #1f2937;
+        }
+
+        /* Header */
+        header {
+            background: #111827;
+            color: white;
+            padding: 16px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #60a5fa;
+        }
+
+        nav a.active {
+            background: #2563eb;
+            padding: 10px 14px;
+            border-radius: 6px;
+        }
+
+        /* Main */
+        .container {
+            width: 90%;
+            max-width: 1150px;
+            margin: 40px auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
+
+        .page-header p {
+            color: #64748b;
+        }
+
+        .add-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .add-btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Search */
+        .search-box {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        /* Table */
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #111827;
+            color: white;
+            padding: 14px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #dcfce7;
+            color: #15803d;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .edit-btn {
+            background: #2563eb;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+        }
+
+        .edit-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .delete-btn:hover {
+            background: #b91c1c;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: #94a3b8;
+            margin: 50px 0 25px;
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🏋️ GymPro</div>
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="members.html">Members</a>
+        <a href="memberships.html" class="active">Memberships</a>
+        <a href="trainers.html">Trainers</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="payments.html">Payments</a>
+        <a href="reports.html">Reports</a>
+        <a href="login.html">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="page-header">
+        <div>
+            <h1>Membership Plans</h1>
+            <p>Manage gym membership plans, prices and durations.</p>
+        </div>
+
+        <button class="add-btn" onclick="addMembership()">
+            + Add Membership
+        </button>
+    </div>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search membership plan..."
+            onkeyup="searchMemberships()"
+        >
+    </div>
+
+    <div class="table-container">
+
+        <table id="membershipTable">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Plan Name</th>
+                    <th>Price</th>
+                    <th>Duration</th>
+                    <th>Members</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>001</td>
+                    <td><strong>Basic</strong></td>
+                    <td>₹1,000</td>
+                    <td>1 Month</td>
+                    <td>45</td>
+                    <td>
+                        <span class="status">Active</span>
+                    </td>
+                    <td>
+                        <button class="edit-btn"
+                                onclick="editMembership('Basic')">
+                            Edit
+                        </button>
+
+                        <button class="delete-btn"
+                                onclick="deleteMembership(this, 'Basic')">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>002</td>
+                    <td><strong>Standard</strong></td>
+                    <td>₹2,000</td>
+                    <td>1 Month</td>
+                    <td>80</td>
+                    <td>
+                        <span class="status">Active</span>
+                    </td>
+                    <td>
+                        <button class="edit-btn"
+                                onclick="editMembership('Standard')">
+                            Edit
+                        </button>
+
+                        <button class="delete-btn"
+                                onclick="deleteMembership(this, 'Standard')">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>003</td>
+                    <td><strong>Premium</strong></td>
+                    <td>₹3,000</td>
+                    <td>1 Month</td>
+                    <td>125</td>
+                    <td>
+                        <span class="status">Active</span>
+                    </td>
+                    <td>
+                        <button class="edit-btn"
+                                onclick="editMembership('Premium')">
+                            Edit
+                        </button>
+
+                        <button class="delete-btn"
+                                onclick="deleteMembership(this, 'Premium')">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 GymPro - Gym & Fitness Management System
+</footer>
+
+
+<script>
+
+    function searchMemberships() {
+
+        let input = document
+            .getElementById("searchInput")
+            .value
+            .toLowerCase();
+
+        let rows = document
+            .querySelectorAll("#membershipTable tbody tr");
+
+        rows.forEach(function(row) {
+
+            let planName = row
+                .cells[1]
+                .textContent
+                .toLowerCase();
+
+            if (planName.includes(input)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+
+        });
+    }
+
+
+    function addMembership() {
+
+        alert(
+            "Add Membership feature is ready for backend integration."
+        );
+    }
+
+
+    function editMembership(plan) {
+
+        alert(
+            "Edit Membership: " + plan +
+            "\n\nThis feature will be connected to the Java backend later."
+        );
+    }
+
+
+    function deleteMembership(button, plan) {
+
+        let confirmDelete = confirm(
+            "Are you sure you want to delete the " +
+            plan + " membership?"
+        );
+
+        if (confirmDelete) {
+
+            button.closest("tr").remove();
+
+            alert(plan + " membership deleted successfully.");
+
+        }
+    }
+
+</script>
+
+</body>
+</html>

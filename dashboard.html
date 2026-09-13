@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - GymPro</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8fb;
+            color: #172033;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 16px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 9px 12px;
+            border-radius: 7px;
+        }
+
+        nav a:hover {
+            background: #2563eb;
+        }
+
+        nav a.active {
+            background: #2563eb;
+        }
+
+        /* ================= MAIN ================= */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .welcome h1 {
+            font-size: 34px;
+            margin-bottom: 8px;
+            color: #111827;
+        }
+
+        .welcome p {
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        /* ================= STAT CARDS ================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 14px;
+            border-top: 4px solid #2563eb;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+        }
+
+        .stat-card.active {
+            border-top-color: #16a34a;
+        }
+
+        .stat-card h3 {
+            font-size: 15px;
+            color: #334155;
+            margin-bottom: 12px;
+        }
+
+        .stat-card h2 {
+            font-size: 32px;
+            color: #2563eb;
+        }
+
+        .stat-card.active h2 {
+            color: #16a34a;
+        }
+
+        /* ================= MODULES ================= */
+
+        .section-title {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #111827;
+        }
+
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .module-card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            border-top: 4px solid #2563eb;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
+            transition: 0.2s;
+        }
+
+        .module-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(15, 23, 42, 0.12);
+        }
+
+        .module-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #172033;
+        }
+
+        .module-card p {
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 10px 17px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Green only for success-related actions */
+        .btn.success {
+            background: #16a34a;
+        }
+
+        .btn.success:hover {
+            background: #15803d;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            text-align: center;
+            margin-top: 55px;
+            padding: 25px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 900px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .modules {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            nav {
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container {
+                width: 92%;
+                margin: 25px auto;
+            }
+
+            .welcome h1 {
+                font-size: 27px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .modules {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">🏋️ GymPro</div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="members.html">Members</a>
+            <a href="memberships.html">Memberships</a>
+            <a href="trainers.html">Trainers</a>
+            <a href="attendance.html">Attendance</a>
+            <a href="payments.html">Payments</a>
+            <a href="reports.html">Reports</a>
+            <a href="login.html">Logout</a>
+        </nav>
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+
+        <div class="welcome">
+            <h1>Welcome to GymPro Dashboard</h1>
+            <p>
+                Manage your gym members, memberships, trainers,
+                attendance and payments from one place.
+            </p>
+        </div>
+
+
+        <!-- STATISTICS -->
+        <div class="stats">
+
+            <div class="stat-card">
+                <h3>Total Members</h3>
+                <h2>250</h2>
+            </div>
+
+            <div class="stat-card active">
+                <h3>Active Memberships</h3>
+                <h2>185</h2>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total Trainers</h3>
+                <h2>12</h2>
+            </div>
+
+            <div class="stat-card active">
+                <h3>Total Revenue</h3>
+                <h2>₹1,25,000</h2>
+            </div>
+
+        </div>
+
+
+        <!-- MANAGEMENT MODULES -->
+        <h2 class="section-title">Management Modules</h2>
+
+        <div class="modules">
+
+            <!-- MEMBERS -->
+            <div class="module-card">
+                <h3>👥 Members</h3>
+                <p>
+                    Add, search, edit and manage gym member information.
+                </p>
+                <a href="members.html" class="btn">
+                    Manage Members
+                </a>
+            </div>
+
+
+            <!-- MEMBERSHIPS -->
+            <div class="module-card">
+                <h3>💳 Memberships</h3>
+                <p>
+                    Manage membership plans, prices, durations and active members.
+                </p>
+                <a href="memberships.html" class="btn">
+                    Manage Memberships
+                </a>
+            </div>
+
+
+            <!-- TRAINERS -->
+            <div class="module-card">
+                <h3>🏋️ Trainers</h3>
+                <p>
+                    Manage trainer details, specialization, experience and status.
+                </p>
+                <a href="trainers.html" class="btn">
+                    Manage Trainers
+                </a>
+            </div>
+
+
+            <!-- ATTENDANCE -->
+            <div class="module-card">
+                <h3>🗓️ Attendance</h3>
+                <p>
+                    Record and manage member check-in, check-out and attendance status.
+                </p>
+                <a href="attendance.html" class="btn">
+                    Manage Attendance
+                </a>
+            </div>
+
+
+            <!-- PAYMENTS -->
+            <div class="module-card">
+                <h3>💰 Payments</h3>
+                <p>
+                    Record membership payments and track payment status.
+                </p>
+                <a href="payments.html" class="btn">
+                    Manage Payments
+                </a>
+            </div>
+
+
+            <!-- REPORTS -->
+            <div class="module-card">
+                <h3>📊 Reports</h3>
+                <p>
+                    View membership, attendance, payment and revenue reports.
+                </p>
+                <a href="reports.html" class="btn">
+                    View Reports
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 GymPro - Gym & Fitness Management System
+    </footer>
+
+</body>
+</html>

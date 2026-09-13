@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments - GymPro</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8fc;
+            color: #1f2937;
+        }
+
+        /* Header */
+        header {
+            background: #111827;
+            color: white;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background: #2563eb;
+            padding: 9px 13px;
+            border-radius: 6px;
+        }
+
+        /* Main */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #475569;
+        }
+
+        .btn {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        /* Search */
+        .search-box {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        /* Table */
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        th {
+            background: #111827;
+            color: white;
+            padding: 14px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .paid {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .edit-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 550px;
+            margin: 60px auto;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 23px;
+        }
+
+        .close {
+            font-size: 28px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .cancel-btn {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        footer {
+            text-align: center;
+            color: #94a3b8;
+            margin: 40px 0 20px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🏋️ GymPro</div>
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="members.html">Members</a>
+        <a href="memberships.html">Memberships</a>
+        <a href="trainers.html">Trainers</a>
+        <a href="attendance.html">Attendance</a>
+        <a href="payments.html" class="active">Payments</a>
+        <a href="reports.html">Reports</a>
+        <a href="login.html">Logout</a>
+    </nav>
+</header>
+
+<div class="container">
+
+    <div class="page-header">
+        <div>
+            <h1>Payments</h1>
+            <p>Manage gym membership payments and payment records.</p>
+        </div>
+
+        <button class="btn" onclick="openModal()">+ Add Payment</button>
+    </div>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search payment by member name, ID or payment method..."
+            onkeyup="searchPayments()"
+        >
+    </div>
+
+    <div class="table-container">
+        <table id="paymentTable">
+            <thead>
+                <tr>
+                    <th>Payment ID</th>
+                    <th>Member ID</th>
+                    <th>Member Name</th>
+                    <th>Membership Plan</th>
+                    <th>Amount</th>
+                    <th>Payment Date</th>
+                    <th>Payment Method</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>M001</td>
+                    <td>Rahul Kumar</td>
+                    <td>Premium</td>
+                    <td>₹3,000</td>
+                    <td>2026-09-05</td>
+                    <td>UPI</td>
+                    <td><span class="status paid">Paid</span></td>
+                    <td>
+                        <button class="edit-btn" onclick="editPayment()">Edit</button>
+                        <button class="delete-btn" onclick="deletePayment(this)">Delete</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>002</td>
+                    <td>M002</td>
+                    <td>Anjali Sharma</td>
+                    <td>Standard</td>
+                    <td>₹2,000</td>
+                    <td>2026-09-07</td>
+                    <td>Card</td>
+                    <td><span class="status paid">Paid</span></td>
+                    <td>
+                        <button class="edit-btn" onclick="editPayment()">Edit</button>
+                        <button class="delete-btn" onclick="deletePayment(this)">Delete</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>003</td>
+                    <td>M003</td>
+                    <td>Arjun Singh</td>
+                    <td>Basic</td>
+                    <td>₹1,000</td>
+                    <td>2026-09-09</td>
+                    <td>Cash</td>
+                    <td><span class="status pending">Pending</span></td>
+                    <td>
+                        <button class="edit-btn" onclick="editPayment()">Edit</button>
+                        <button class="delete-btn" onclick="deletePayment(this)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 GymPro - Gym & Fitness Management System
+</footer>
+
+
+<!-- Add Payment Modal -->
+<div class="modal" id="paymentModal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+            <h2>Add Payment</h2>
+            <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+
+        <form onsubmit="addPayment(event)">
+
+            <div class="form-group">
+                <label>Member ID</label>
+                <input type="text" id="memberId" placeholder="Example: M004" required>
+            </div>
+
+            <div class="form-group">
+                <label>Member Name</label>
+                <input type="text" id="memberName" placeholder="Enter member name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Membership Plan</label>
+
+                <select id="membershipPlan" onchange="updateAmount()" required>
+                    <option value="">Select Membership Plan</option>
+                    <option value="Basic">Basic - ₹1,000 / Month</option>
+                    <option value="Standard">Standard - ₹2,000 / Month</option>
+                    <option value="Premium">Premium - ₹3,000 / Month</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Amount</label>
+                <input type="text" id="amount" readonly placeholder="Select membership plan">
+            </div>
+
+            <div class="form-group">
+                <label>Payment Date</label>
+                <input type="date" id="paymentDate" required>
+            </div>
+
+            <div class="form-group">
+                <label>Payment Method</label>
+
+                <select id="paymentMethod" required>
+                    <option value="">Select Payment Method</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Card">Card</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Bank Transfer">Bank Transfer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Status</label>
+
+                <select id="paymentStatus" required>
+                    <option value="Paid">Paid</option>
+                    <option value="Pending">Pending</option>
+                </select>
+            </div>
+
+            <div class="form-buttons">
+                <button type="button" class="cancel-btn" onclick="closeModal()">
+                    Cancel
+                </button>
+
+                <button type="submit" class="btn">
+                    Add Payment
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function openModal() {
+        document.getElementById("paymentModal").style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById("paymentModal").style.display = "none";
+    }
+
+    function updateAmount() {
+
+        const plan = document.getElementById("membershipPlan").value;
+        const amount = document.getElementById("amount");
+
+        if (plan === "Basic") {
+            amount.value = "₹1,000";
+        }
+        else if (plan === "Standard") {
+            amount.value = "₹2,000";
+        }
+        else if (plan === "Premium") {
+            amount.value = "₹3,000";
+        }
+        else {
+            amount.value = "";
+        }
+    }
+
+    function addPayment(event) {
+
+        event.preventDefault();
+
+        const memberId = document.getElementById("memberId").value;
+        const memberName = document.getElementById("memberName").value;
+        const plan = document.getElementById("membershipPlan").value;
+        const amount = document.getElementById("amount").value;
+        const date = document.getElementById("paymentDate").value;
+        const method = document.getElementById("paymentMethod").value;
+        const status = document.getElementById("paymentStatus").value;
+
+        const table = document.querySelector("#paymentTable tbody");
+
+        const paymentId = String(table.rows.length + 1).padStart(3, "0");
+
+        const statusClass = status === "Paid" ? "paid" : "pending";
+
+        const row = table.insertRow();
+
+        row.innerHTML = `
+            <td>${paymentId}</td>
+            <td>${memberId}</td>
+            <td>${memberName}</td>
+            <td>${plan}</td>
+            <td>${amount}</td>
+            <td>${date}</td>
+            <td>${method}</td>
+            <td><span class="status ${statusClass}">${status}</span></td>
+            <td>
+                <button class="edit-btn" onclick="editPayment()">Edit</button>
+                <button class="delete-btn" onclick="deletePayment(this)">Delete</button>
+            </td>
+        `;
+
+        alert("Payment added successfully!");
+
+        document.querySelector("form").reset();
+        document.getElementById("amount").value = "";
+
+        closeModal();
+    }
+
+    function deletePayment(button) {
+
+        const confirmDelete = confirm("Are you sure you want to delete this payment?");
+
+        if (confirmDelete) {
+            button.closest("tr").remove();
+        }
+    }
+
+    function editPayment() {
+        alert("Edit payment feature will be connected to the Java backend later.");
+    }
+
+    function searchPayments() {
+
+        const input = document.getElementById("searchInput").value.toLowerCase();
+        const rows = document.querySelectorAll("#paymentTable tbody tr");
+
+        rows.forEach(row => {
+
+            const text = row.innerText.toLowerCase();
+
+            if (text.includes(input)) {
+                row.style.display = "";
+            }
+            else {
+                row.style.display = "none";
+            }
+
+        });
+    }
+
+    window.onclick = function(event) {
+
+        const modal = document.getElementById("paymentModal");
+
+        if (event.target === modal) {
+            closeModal();
+        }
+    }
+
+</script>
+
+</body>
+</html>

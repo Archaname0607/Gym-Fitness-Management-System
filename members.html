@@ -1,247 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Members - GymPro</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Members - GymPro</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        body {
-            background: #f4f7fb;
-            color: #1f2937;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #1f2937;
+}
 
-        /* Navbar */
-        header {
-            background: #111827;
-            color: white;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* Header */
+header {
+    background: #111827;
+    color: white;
+    padding: 18px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
 
-        nav {
-            display: flex;
-            gap: 24px;
-            align-items: center;
-        }
+.logo span {
+    margin-right: 8px;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            padding: 9px 12px;
-            border-radius: 7px;
-        }
+nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
 
-        nav a:hover {
-            background: #2563eb;
-        }
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+}
 
-        nav a.active {
-            background: #2563eb;
-        }
+nav a:hover,
+nav a.active {
+    background: #2563eb;
+}
 
-        /* Main */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 40px auto;
-        }
+/* Main */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 35px auto;
+}
 
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
-        .page-header h1 {
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
+h1 {
+    font-size: 30px;
+    margin-bottom: 6px;
+}
 
-        .page-header p {
-            color: #64748b;
-        }
+.subtitle {
+    color: #4b5563;
+}
 
-        /* Button */
-        .add-btn {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+/* Buttons */
+.btn {
+    border: none;
+    border-radius: 6px;
+    padding: 11px 17px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
 
-        .add-btn:hover {
-            background: #1d4ed8;
-        }
+.add-btn {
+    background: #2563eb;
+    color: white;
+}
 
-        /* Search */
-        .search-box {
-            background: white;
-            padding: 18px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-        }
+.add-btn:hover {
+    background: #1d4ed8;
+}
 
-        .search-box input {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #cbd5e1;
-            border-radius: 7px;
-            font-size: 15px;
-            outline: none;
-        }
+.edit-btn {
+    background: #2563eb;
+    color: white;
+    padding: 7px 12px;
+}
 
-        .search-box input:focus {
-            border-color: #2563eb;
-        }
+.edit-btn:hover {
+    background: #1d4ed8;
+}
 
-        /* Table */
-        .table-container {
-            background: white;
-            border-radius: 12px;
-            overflow-x: auto;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-        }
+.delete-btn {
+    background: #dc2626;
+    color: white;
+    padding: 7px 12px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 900px;
-        }
+.delete-btn:hover {
+    background: #b91c1c;
+}
 
-        th {
-            background: #111827;
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-size: 14px;
-        }
+.cancel-btn {
+    background: #6b7280;
+    color: white;
+}
 
-        td {
-            padding: 15px;
-            border-bottom: 1px solid #e5e7eb;
-            font-size: 14px;
-        }
+.cancel-btn:hover {
+    background: #4b5563;
+}
 
-        tr:hover {
-            background: #f8fafc;
-        }
+/* Search */
+.search-box {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
 
-        /* Status */
-        .status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
+/* Table */
+.table-container {
+    background: white;
+    border-radius: 10px;
+    overflow-x: auto;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
 
-        .active-status {
-            background: #dcfce7;
-            color: #15803d;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 850px;
+}
 
-        .expired-status {
-            background: #fee2e2;
-            color: #b91c1c;
-        }
+th {
+    background: #111827;
+    color: white;
+    padding: 14px 12px;
+    text-align: left;
+    font-size: 14px;
+}
 
-        /* Action buttons */
-        .edit-btn,
-        .delete-btn {
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-right: 5px;
-        }
+td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
 
-        .edit-btn {
-            background: #2563eb;
-            color: white;
-        }
+tr:hover {
+    background: #f9fafb;
+}
 
-        .edit-btn:hover {
-            background: #1d4ed8;
-        }
+.actions {
+    display: flex;
+    gap: 8px;
+}
 
-        .delete-btn {
-            background: #dc2626;
-            color: white;
-        }
+/* Status */
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
 
-        .delete-btn:hover {
-            background: #b91c1c;
-        }
+.active {
+    background: #d1fae5;
+    color: #047857;
+}
 
-        /* Footer */
-        footer {
-            text-align: center;
-            color: #94a3b8;
-            padding: 50px 20px 25px;
-            font-size: 14px;
-        }
+.expired {
+    background: #fee2e2;
+    color: #b91c1c;
+}
 
-        /* Mobile */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 15px;
-            }
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.55);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
 
-            nav {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 8px;
-            }
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 520px;
+    border-radius: 12px;
+    padding: 28px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
 
-            .container {
-                width: 95%;
-                margin: 25px auto;
-            }
+.modal-content h2 {
+    margin-bottom: 22px;
+    font-size: 25px;
+}
 
-            .page-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
+.form-group {
+    margin-bottom: 16px;
+}
 
-            .page-header h1 {
-                font-size: 28px;
-            }
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
 
-            .add-btn {
-                align-self: flex-end;
-            }
-        }
-    </style>
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    color: #6b7280;
+    margin: 55px 0 25px;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    .top-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .add-btn {
+        width: 100%;
+    }
+
+    .modal-content {
+        padding: 22px;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">🏋️ GymPro</div>
+    <div class="logo">
+        <span>🏋️</span> GymPro
+    </div>
 
     <nav>
         <a href="dashboard.html">Dashboard</a>
@@ -251,36 +303,39 @@
         <a href="attendance.html">Attendance</a>
         <a href="payments.html">Payments</a>
         <a href="reports.html">Reports</a>
-        <a href="index.html">Logout</a>
+        <a href="login.html">Logout</a>
     </nav>
 </header>
 
 <div class="container">
 
-    <div class="page-header">
+    <div class="top-section">
         <div>
             <h1>Members</h1>
-            <p>Manage gym member information and membership details.</p>
+            <p class="subtitle">
+                Manage gym member information and membership details.
+            </p>
         </div>
 
-        <button class="add-btn" onclick="addMember()">+ Add Member</button>
+        <button class="btn add-btn" onclick="openModal()">
+            + Add Member
+        </button>
     </div>
 
-    <div class="search-box">
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="Search members by name, email or phone..."
-            onkeyup="searchMembers()"
-        >
-    </div>
+    <input
+        type="text"
+        id="searchInput"
+        class="search-box"
+        placeholder="Search by name, email, phone or membership..."
+        onkeyup="searchMembers()"
+    >
 
     <div class="table-container">
         <table id="membersTable">
 
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Member ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
@@ -294,50 +349,56 @@
             <tbody>
 
                 <tr>
-                    <td>001</td>
+                    <td>M001</td>
                     <td>Rahul Kumar</td>
                     <td>rahul@example.com</td>
                     <td>9876543210</td>
                     <td>Premium</td>
-                    <td>30-12-2026</td>
+                    <td>2026-12-31</td>
                     <td>
-                        <span class="status active-status">Active</span>
+                        <span class="status active">Active</span>
                     </td>
                     <td>
-                        <button class="edit-btn" onclick="editMember()">Edit</button>
-                        <button class="delete-btn" onclick="deleteMember(this)">Delete</button>
+                        <div class="actions">
+                            <button class="btn edit-btn" onclick="editMember()">Edit</button>
+                            <button class="btn delete-btn" onclick="deleteMember()">Delete</button>
+                        </div>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>002</td>
+                    <td>M002</td>
                     <td>Anjali Sharma</td>
                     <td>anjali@example.com</td>
                     <td>9123456780</td>
                     <td>Standard</td>
-                    <td>15-11-2026</td>
+                    <td>2026-11-30</td>
                     <td>
-                        <span class="status active-status">Active</span>
+                        <span class="status active">Active</span>
                     </td>
                     <td>
-                        <button class="edit-btn" onclick="editMember()">Edit</button>
-                        <button class="delete-btn" onclick="deleteMember(this)">Delete</button>
+                        <div class="actions">
+                            <button class="btn edit-btn" onclick="editMember()">Edit</button>
+                            <button class="btn delete-btn" onclick="deleteMember()">Delete</button>
+                        </div>
                     </td>
                 </tr>
 
                 <tr>
-                    <td>003</td>
+                    <td>M003</td>
                     <td>Arjun Singh</td>
                     <td>arjun@example.com</td>
                     <td>9988776655</td>
                     <td>Basic</td>
-                    <td>05-08-2026</td>
+                    <td>2026-09-10</td>
                     <td>
-                        <span class="status expired-status">Expired</span>
+                        <span class="status expired">Expired</span>
                     </td>
                     <td>
-                        <button class="edit-btn" onclick="editMember()">Edit</button>
-                        <button class="delete-btn" onclick="deleteMember(this)">Delete</button>
+                        <div class="actions">
+                            <button class="btn edit-btn" onclick="editMember()">Edit</button>
+                            <button class="btn delete-btn" onclick="deleteMember()">Delete</button>
+                        </div>
                     </td>
                 </tr>
 
@@ -348,41 +409,137 @@
 </div>
 
 <footer>
-    © 2026 GymPro - Gym & Fitness Management System
+    © 2026 GymPro | Gym & Fitness Management System
 </footer>
+
+
+<!-- ADD MEMBER MODAL -->
+
+<div class="modal" id="memberModal">
+
+    <div class="modal-content">
+
+        <h2>Add Member</h2>
+
+        <form onsubmit="saveMember(event)">
+
+            <div class="form-group">
+                <label>Member Name</label>
+                <input type="text" placeholder="Enter member name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" placeholder="Enter email" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" placeholder="Enter phone number" required>
+            </div>
+
+            <div class="form-group">
+                <label>Membership Plan</label>
+                <select required>
+                    <option value="">Select Membership</option>
+                    <option>Basic</option>
+                    <option>Standard</option>
+                    <option>Premium</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Joining Date</label>
+                <input type="date" required>
+            </div>
+
+            <div class="form-group">
+                <label>Expiry Date</label>
+                <input type="date" required>
+            </div>
+
+            <div class="form-group">
+                <label>Status</label>
+                <select>
+                    <option>Active</option>
+                    <option>Expired</option>
+                </select>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="btn add-btn">
+                    Add Member
+                </button>
+
+                <button type="button" class="btn cancel-btn" onclick="closeModal()">
+                    Cancel
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
 
 <script>
 
-    function searchMembers() {
-        let input = document.getElementById("searchInput").value.toLowerCase();
-        let rows = document.querySelectorAll("#membersTable tbody tr");
+function openModal() {
+    document.getElementById("memberModal").style.display = "flex";
+}
 
-        rows.forEach(function(row) {
-            let text = row.innerText.toLowerCase();
+function closeModal() {
+    document.getElementById("memberModal").style.display = "none";
+}
 
-            if (text.includes(input)) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
-        });
+function saveMember(event) {
+    event.preventDefault();
+
+    alert("Member added successfully! Backend integration can be connected later.");
+
+    closeModal();
+}
+
+function editMember() {
+    alert("Edit Member form can be connected to the Java backend later.");
+}
+
+function deleteMember() {
+    if (confirm("Are you sure you want to delete this member?")) {
+        alert("Member deleted successfully!");
+    }
+}
+
+function searchMembers() {
+
+    let input = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    let rows = document
+        .querySelectorAll("#membersTable tbody tr");
+
+    rows.forEach(function(row) {
+
+        let text = row.innerText.toLowerCase();
+
+        row.style.display =
+            text.includes(input) ? "" : "none";
+
+    });
+}
+
+window.onclick = function(event) {
+
+    let modal = document.getElementById("memberModal");
+
+    if (event.target === modal) {
+        closeModal();
     }
 
-    function addMember() {
-        alert("Add Member form will be connected to the Java backend later.");
-    }
-
-    function editMember() {
-        alert("Edit Member feature will be connected to the Java backend later.");
-    }
-
-    function deleteMember(button) {
-        let confirmDelete = confirm("Are you sure you want to delete this member?");
-
-        if (confirmDelete) {
-            button.closest("tr").remove();
-        }
-    }
+};
 
 </script>
 
